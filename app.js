@@ -9,18 +9,25 @@ const logRoutes = require("./src/routes/logs.route");
 
 const app = express();
 
-app.use(cors());
+// CORS options
+const corsOptions = {
+    origin: ["http://localhost:5173", "https://airport-erp.vercel.app"],
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
-// app.use("/api/staff", staffRoutes);
-// app.use("/api/logs", logRoutes);
+// Routes
 app.use("/api/flights", flightRoutes);
+app.use("/api/staff", staffRoutes);
+app.use("/api/logs", logRoutes);
 
 const PORT = process.env.PORT || 6000;
 
 sequelize.sync({ force: false }).then(() => {
-    console.log("Database connected");
+    console.log("✅ Database connected");
     app.listen(PORT, () => {
-        console.log("Server running on port", PORT);
+        console.log("🚀 Server running on port", PORT);
     });
 });
