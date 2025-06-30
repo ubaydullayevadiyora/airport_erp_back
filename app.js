@@ -23,11 +23,5 @@ app.use("/api/flights", flightRoutes);
 app.use("/api/staff", staffRoutes);
 app.use("/api/logs", logRoutes);
 
-const PORT = process.env.PORT || 6000;
-
-sequelize.sync({ force: false }).then(() => {
-    console.log("✅ Database connected");
-    app.listen(PORT, () => {
-        console.log("🚀 Server running on port", PORT);
-    });
-});
+// Export both app and sequelize
+module.exports = { app, sequelize };
